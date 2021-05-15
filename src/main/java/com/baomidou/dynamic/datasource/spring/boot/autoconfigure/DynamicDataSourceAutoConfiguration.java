@@ -102,6 +102,7 @@ public class DynamicDataSourceAutoConfiguration {
     @ConditionalOnProperty(prefix = DynamicDataSourceProperties.PREFIX, name = "seata", havingValue = "false", matchIfMissing = true)
     @Bean
     public Advisor dynamicTransactionAdvisor() {
+        // 切面00  注解加载了类上会被拦截到，进入到通进行业务逻辑，注解要是加在方法上不会被拦截
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
         pointcut.setExpression("@annotation(com.baomidou.dynamic.datasource.annotation.DSTransactional)");
         return new DefaultPointcutAdvisor(pointcut, new DynamicLocalTransactionAdvisor());

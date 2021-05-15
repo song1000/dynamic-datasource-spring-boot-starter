@@ -39,6 +39,10 @@ import java.lang.reflect.Proxy;
 /**
  * @author TaoYu
  * @since 1.2.0
+ *
+ *  00  Advisor 需要切面point和advice
+ *      一定要加入依赖 spring-boot-starter-aop 否则不起作用
+ *
  */
 public class DynamicDataSourceAnnotationAdvisor extends AbstractPointcutAdvisor implements BeanFactoryAware {
 
@@ -69,7 +73,9 @@ public class DynamicDataSourceAnnotationAdvisor extends AbstractPointcutAdvisor 
     }
 
     private Pointcut buildPointcut() {
+        // 00 注解加在了类上才会被拦截，方法上不会拦截
         Pointcut cpc = new AnnotationMatchingPointcut(DS.class, true);
+        // 00 注解加在了方法上才会被拦截，类上不会拦截
         Pointcut mpc = new AnnotationMethodPoint(DS.class);
         return new ComposablePointcut(cpc).union(mpc);
     }

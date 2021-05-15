@@ -39,33 +39,6 @@ public class DataSourceClassResolver {
 
     private static boolean mpEnabled = false;
 
-    private static Field mapperInterfaceField;
-
-    static {
-        Class<?> proxyClass = null;
-        try {
-            proxyClass = Class.forName("com.baomidou.mybatisplus.core.override.MybatisMapperProxy");
-        } catch (ClassNotFoundException e1) {
-            try {
-                proxyClass = Class.forName("com.baomidou.mybatisplus.core.override.PageMapperProxy");
-            } catch (ClassNotFoundException e2) {
-                try {
-                    proxyClass = Class.forName("org.apache.ibatis.binding.MapperProxy");
-                } catch (ClassNotFoundException ignored) {
-                }
-            }
-        }
-        if (proxyClass != null) {
-            try {
-                mapperInterfaceField = proxyClass.getDeclaredField("mapperInterface");
-                mapperInterfaceField.setAccessible(true);
-                mpEnabled = true;
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     /**
      * 缓存方法对应的数据源
      */
@@ -199,12 +172,6 @@ public class DataSourceClassResolver {
                 break;
             }
             current = currentRefObject;
-        }
-        try {
-            if (Proxy.isProxyClass(current.getClass())) {
-                return (Class<?>) mapperInterfaceField.get(Proxy.getInvocationHandler(current));
-            }
-        } catch (IllegalAccessException ignore) {
         }
         return null;
     }

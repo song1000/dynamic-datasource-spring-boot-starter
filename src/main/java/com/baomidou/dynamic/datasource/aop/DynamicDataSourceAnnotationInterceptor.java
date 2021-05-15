@@ -37,6 +37,7 @@ public class DynamicDataSourceAnnotationInterceptor implements MethodInterceptor
     private final DataSourceClassResolver dataSourceClassResolver;
     private final DsProcessor dsProcessor;
 
+    // 00 tong
     public DynamicDataSourceAnnotationInterceptor(Boolean allowedPublicOnly, DsProcessor dsProcessor) {
         dataSourceClassResolver = new DataSourceClassResolver(allowedPublicOnly);
         this.dsProcessor = dsProcessor;
@@ -47,6 +48,7 @@ public class DynamicDataSourceAnnotationInterceptor implements MethodInterceptor
         String dsKey = determineDatasourceKey(invocation);
         DynamicDataSourceContextHolder.push(dsKey);
         try {
+            // 00 方法的执行，返回的是方法的执行结果
             return invocation.proceed();
         } finally {
             DynamicDataSourceContextHolder.poll();
@@ -54,6 +56,7 @@ public class DynamicDataSourceAnnotationInterceptor implements MethodInterceptor
     }
 
     private String determineDatasourceKey(MethodInvocation invocation) {
+        // 00 下面第一个参数为 拦截的方法 ，第二参数为： 方法所在类的对象
         String key = dataSourceClassResolver.findDSKey(invocation.getMethod(), invocation.getThis());
         return (!key.isEmpty() && key.startsWith(DYNAMIC_PREFIX)) ? dsProcessor.determineDatasource(invocation, key) : key;
     }
