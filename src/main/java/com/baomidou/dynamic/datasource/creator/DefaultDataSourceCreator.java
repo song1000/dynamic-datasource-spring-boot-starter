@@ -40,6 +40,7 @@ import java.util.List;
 @Setter
 public class DefaultDataSourceCreator {
 
+    /** 00 获取默认的数据源生成器   */
     private DynamicDataSourceProperties properties;
     private List<DataSourceCreator> creators;
 

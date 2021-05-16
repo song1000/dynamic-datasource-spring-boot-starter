@@ -36,6 +36,7 @@ public abstract class AbstractRoutingDataSource extends AbstractDataSource {
 
     protected abstract DataSource determineDataSource();
 
+    /** 这里是执行代码获取连接数据库的地方  */
     @Override
     public Connection getConnection() throws SQLException {
         String xid = TransactionContext.getXID();

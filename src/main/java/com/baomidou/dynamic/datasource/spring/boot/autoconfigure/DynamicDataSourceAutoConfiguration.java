@@ -60,9 +60,12 @@ import java.util.Map;
 @Slf4j
 @Configuration
 @AllArgsConstructor
+/**  下面注解使配置类进入spring容器管理 */
 @EnableConfigurationProperties(DynamicDataSourceProperties.class)
 @AutoConfigureBefore(value = DataSourceAutoConfiguration.class, name = "com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure")
+/** 00 用@import注解，意味着引入到spring管理的容器 */
 @Import(value = {DruidDynamicDataSourceConfiguration.class, DynamicDataSourceCreatorAutoConfiguration.class, DynamicDataSourceHealthCheckConfiguration.class})
+/** "spring.datasource.dynamic.enabled 为true或者此属性不存在（默认）时候这个配置类生效 */
 @ConditionalOnProperty(prefix = DynamicDataSourceProperties.PREFIX, name = "enabled", havingValue = "true", matchIfMissing = true)
 public class DynamicDataSourceAutoConfiguration {
 

@@ -30,6 +30,7 @@ import java.util.Map;
  */
 @Slf4j
 @AllArgsConstructor
+/** 利用creater将yml文件的数据源配置  生成Map的数据源 loadDataSources */
 public class YmlDynamicDataSourceProvider extends AbstractDataSourceProvider {
 
     /**

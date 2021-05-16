@@ -99,6 +99,7 @@ public class DynamicDataSourceProperties {
     private DruidConfig druid = new DruidConfig();
     /**
      * HikariCp全局参数配置
+     * 00 下面注解标识一个复杂的类型，不是简单的数据类型
      */
     @NestedConfigurationProperty
     private HikariCpConfig hikari = new HikariCpConfig();
